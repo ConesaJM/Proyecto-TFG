@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form action="" method="post">
                 <div class="form-group">
-                    <label for="user">Usuario</label>
+                    <label for="user">Usuario o email</label>
                     <div class="input-group">
                         <i class="fa-solid fa-user input-icon-left"></i>
                         <input type="text" id="user" name="user" class="form-input" 
