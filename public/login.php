@@ -23,24 +23,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user === '' || $password === '') {
         $error = 'Por favor, rellene todos los campos.';
     } else {
-        $u = buscarUsuarioPorNombre($pdo, $user);
+
+          // Buscar por NOMBRE o CORREO (sirve para loguearse con usuario o email)
+        $stmt = $pdo->prepare("SELECT * FROM USUARIO WHERE NOMBRE = ? OR CORREO = ?");
+        $stmt->execute([$user, $user]);
+        $u = $stmt->fetch();
       
-        // validar contraseña
-        if ($u && 
-            $user === $u['NOMBRE'] &&
-        (
-            password_verify($password, $u['CONTRASENHIA']) || 
-            $password === $u['CONTRASENHIA']                  
+       // Si se ha encontrado el usuario (por nombre o por correo)
+       // solo comprobamos la contraseña
+        if ($u && (
+            password_verify($password, $u['CONTRASENHIA']) ||
+            $password === $u['CONTRASENHIA']
         )) {
-                 //mantener sesión
+
+            // Mantener sesión con los datos correctos del usuario
+            // Siempre guardamos el NOMBRE, aunque haya entrado con el correo
             $_SESSION['user_id'] = $u['ID'];
             $_SESSION['user_rol'] = $u['ROL'];
             $_SESSION['user_nombre_usuario'] = $u['NOMBRE'];
 
-            //redirección a index
+            // Redirección al panel principal
             header('Location: index.php');
             exit;
+
         } else {
+            // Usuario no encontrado o contraseña incorrecta
             $error = 'Usuario o contraseña incorrectos.';
         }
     }

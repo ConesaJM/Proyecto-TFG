@@ -24,27 +24,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($nombre === '' || $password === '' || $correo === '') {
         $error = 'Por favor, rellene todos los campos.';
     } else {
-        // Comprobar si ya existe un usuario con ese nombre
+        // Comprobar si ya existe el usuario por nombre
         $stmt = $pdo->prepare("SELECT ID FROM USUARIO WHERE NOMBRE = ?");
         $stmt->execute([$nombre]);
-        $existe = $stmt->fetch();
+        $existeNombre = $stmt->fetch();
 
-        if ($existe) {
+        // Comprobar si ya existe el usuario por correo
+        $stmt = $pdo->prepare("SELECT ID FROM USUARIO WHERE CORREO = ?");
+        $stmt->execute([$correo]);
+        $existeCorreo = $stmt->fetch();
+
+        if ($existeNombre) {
             $error = 'Ese nombre de usuario ya existe.';
+        } elseif ($existeCorreo) {
+            $error = 'Ese correo ya está registrado.';
         } else {
-            // Guardar contraseña cifrada en la BD
+            // insertar normal
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
-            // Insertar usuario con nombre, contraseña y correo
             $stmt = $pdo->prepare(
                 "INSERT INTO USUARIO (NOMBRE, CONTRASENHIA, CORREO) VALUES (?, ?, ?)"
             );
             $stmt->execute([$nombre, $hash, $correo]);
 
-            // Redirigimos al login indicando que el registro fue OK
             header('Location: login.php?registro=ok');
             exit;
         }
+
     }
 }
 
