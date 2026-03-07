@@ -67,6 +67,58 @@ headerHtml('Panel Principal - Pharmasphere');
 </section>
 
 <?php
+// Bloque de estadísticas solo para Administradores
+if (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] === 'Administrador') {
+
+    // Totales simples (relleno útil)
+    $totalUsuarios  = (int)$pdo->query("SELECT COUNT(*) FROM USUARIO")->fetchColumn();
+    $totalProductos = (int)$pdo->query("SELECT COUNT(*) FROM PRODUCTO")->fetchColumn();
+    $totalMarcas    = (int)$pdo->query("SELECT COUNT(*) FROM MARCA")->fetchColumn();
+?>
+<hr>
+
+<section>
+    <h3>Estadísticas</h3>
+    <p>Datos generales del sistema:</p>
+
+    <ul>
+        <li>Usuarios: <strong><?= h($totalUsuarios) ?></strong></li>
+        <li>Productos: <strong><?= h($totalProductos) ?></strong></li>
+        <li>Marcas: <strong><?= h($totalMarcas) ?></strong></li>
+    </ul>
+
+    <div style="max-width:700px; margin-top: 15px;">
+        <canvas id="adminChart"></canvas>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('adminChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Usuarios', 'Productos', 'Marcas'],
+        datasets: [{
+            label: 'Totales',
+            data: [<?= (int)$totalUsuarios ?>, <?= (int)$totalProductos ?>, <?= (int)$totalMarcas ?>]
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+
+<?php
+}
+?>
+
+<?php
 // 5. CIERRE DE LA PÁGINA
 // Llamamos a la otra función para cerrar </body></html>
 // También dentro de utils.php
