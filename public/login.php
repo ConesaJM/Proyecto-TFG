@@ -12,7 +12,13 @@ if (isset($_SESSION['user_id'])) {
 }
 
 $error = '';
+$msg = '';
 $last_user = '';
+
+// Mostrar mensaje si viene de cambiar contraseña
+if (isset($_GET['reset']) && $_GET['reset'] === 'ok') {
+    $msg = 'Contraseña cambiada correctamente. Ya puedes iniciar sesión.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = trim($_POST['user'] ?? '');
@@ -88,6 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
+            <?php if (!empty($msg)): ?>
+                <div style="background:#dcfce7;border:1px solid #bbf7d0;color:#166534;padding:12px;border-radius:8px;margin-bottom:20px;">
+                    <?= htmlspecialchars($msg) ?>
+                </div>
+            <?php endif; ?>
+
             <form action="" method="post">
                 <div class="form-group">
                     <label for="user">Usuario o email</label>
@@ -115,6 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             <br>
             <a href="registro.php" style="display:block; margin-top:10px; text-align: center;">Crear cuenta</a>
+            <br>
+            <a href="forgot.php" style="display:block; margin-top:10px; text-align:center;">¿Olvidaste tu contraseña?</a>
         </div>
     </div>
 
