@@ -457,6 +457,164 @@ function headerHtml($title = 'Pharmasphere')
                 vertical-align: middle;
             }
 
+            /* --- ESTILOS DEL CHAT FARMACÉUTICO (REDISEÑO) --- */
+            .chat-container {
+                background-color: var(--color-card);
+                border: 1px solid var(--color-borde);
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra más moderna y profunda */
+                max-width: 800px;
+                margin: 0 auto 40px auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .chat-header {
+                background-color: var(--color-primario);
+                color: white;
+                padding: 16px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: 600;
+                font-size: 1.1rem;
+            }
+
+            .chat-header a {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 0.85rem;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(0,0,0,0.15);
+                padding: 6px 12px;
+                border-radius: 20px;
+            }
+
+            .chat-header a:hover {
+                color: white;
+                background: rgba(0,0,0,0.3);
+            }
+
+            .chat-window {
+                height: 380px; /* Un poco más alto para mayor comodidad */
+                overflow-y: auto;
+                padding: 20px;
+                background-color: #f4f7f6; /* Fondo gris muy suave para que destaquen los mensajes */
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            body.tema-oscuro .chat-window {
+                background-color: #1a1a1a;
+            }
+
+            /* Base de los mensajes (Los bocadillos) */
+            .msg {
+                max-width: 80%;
+                padding: 12px 18px;
+                border-radius: 18px;
+                font-size: 0.95rem;
+                line-height: 1.4;
+                position: relative;
+                word-wrap: break-word;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+
+            /* Mensaje del Usuario (Derecha, Color Primario) */
+            .msg-user {
+                align-self: flex-end;
+                background-color: var(--color-primario);
+                color: white;
+                border-bottom-right-radius: 4px; /* Hace el efecto de flecha hacia el usuario */
+            }
+
+            /* Mensaje de la IA (Izquierda, Color Tarjeta) */
+            .msg-model {
+                align-self: flex-start;
+                background-color: var(--color-card);
+                border: 1px solid var(--color-borde);
+                color: var(--color-texto);
+                border-bottom-left-radius: 4px; /* Hace el efecto de flecha hacia la IA */
+            }
+
+            .msg-img {
+                max-width: 150px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            /* Controles de abajo (Input y Botones) */
+            .chat-controls {
+                padding: 15px 20px;
+                border-top: 1px solid var(--color-borde);
+                background-color: var(--color-card);
+            }
+
+            .chat-form {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                margin: 0;
+            }
+
+            .btn-camera {
+                color: var(--color-texto-muted);
+                cursor: pointer;
+                padding: 10px;
+                transition: color 0.2s, transform 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .btn-camera:hover {
+                color: var(--color-primario);
+                transform: scale(1.1);
+            }
+
+            .chat-input {
+                flex-grow: 1;
+                margin: 0 !important; /* Sobrescribimos el margin por defecto de los inputs */
+                padding: 14px 20px !important;
+                border-radius: 30px !important; /* Input muy redondeado */
+                border: 1px solid var(--color-borde) !important;
+                background-color: var(--color-fondo) !important;
+                font-size: 0.95rem;
+            }
+
+            .btn-send-chat {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: var(--color-primario);
+                color: white;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+                padding: 0;
+                flex-shrink: 0;
+            }
+
+            .btn-send-chat:hover {
+                background-color: var(--color-primario-hover);
+                transform: scale(1.05);
+                box-shadow: 0 4px 10px color-mix(in srgb, var(--color-primario), transparent 60%);
+            }
+
+            .btn-send-chat i {
+                margin-left: -2px; /* Centrar ópticamente el icono de enviar */
+                font-size: 1.1rem;
+            }
+
             /* BOTONES */
             .btn-table {
                 padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;

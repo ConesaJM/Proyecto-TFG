@@ -31,14 +31,11 @@ function crearUsuario(PDO $pdo, string $nombre_usuario, string $password_hash, s
 // Crea un nuevo producto 
 function crearProducto(PDO $pdo, string $nombre, string $categoria, int $receta, float $precio, int $stock, int $marca_id): int {
     // Tabla y columnas actualizadas
-
-        $sql = "INSERT INTO PRODUCTO (NOMBRE, CATEGORIA, RECETA, PRECIO, STOCK_DISPONIBLE, MARCA_ID) 
+    $sql = "INSERT INTO PRODUCTO (NOMBRE, CATEGORIA, RECETA, PRECIO, STOCK_DISPONIBLE, MARCA_ID) 
             VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$nombre, $categoria, $receta, $precio, $stock, $marca_id]);
     return (int)$pdo->lastInsertId();
-
-    
 }
 
 // Sistema de busqueda de producto por id
@@ -131,6 +128,118 @@ function auditoria_list(PDO $pdo): array {
         return []; // Si falla, devolvemos array vacío
     }
 }
-?>
 
-<!--------------------------------------------------------------------------------------------------------------------------------------->
+/* ========= 5. FUNCIÓN IA (GEMINI - PROCESAMIENTO IMAGEN) =========== */
+
+function analizarImagenGemini(?string $rutaImagen = null, string $preguntaUsuario = ''): string {
+    $apiKey = "AIzaSyBWEtAFD7KrQ0OQ23OUYJBzkZ3HjakL6AQ"; // <--- ¡TU CLAVE!
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview:generateContent?key=$apiKey";
+
+    // 1. PREPARAMOS EL PAYLOAD
+    $parts = [];
+
+    if (!empty($preguntaUsuario)) {
+        $parts[] = ["text" => $preguntaUsuario];
+    } else {
+        $parts[] = ["text" => "Identifica el NOMBRE COMERCIAL o PRINCIPIO ACTIVO en la imagen. Responde SOLO con el nombre limpio."];
+    }
+
+    if ($rutaImagen && file_exists($rutaImagen)) {
+        $info = getimagesize($rutaImagen);
+        if ($info) {
+            $dataImg = base64_encode(file_get_contents($rutaImagen));
+            $parts[] = [
+                "inline_data" => [
+                    "mime_type" => $info['mime'],
+                    "data" => $dataImg
+                ]
+            ];
+        }
+    }
+
+    if (empty($parts)) return "";
+
+    // 2. CONSTRUIR JSON
+    $data = ["contents" => [["parts" => $parts]]];
+
+    if (strpos($preguntaUsuario, 'JSON') !== false) {
+        $data['generationConfig'] = [
+            "responseMimeType" => "application/json"
+        ];
+    }
+
+    // 3. ENVIAR
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    
+    $respuesta = curl_exec($ch);
+    
+    if (curl_errno($ch)) return '{"intencion": "NULL", "error": "Curl error"}';
+    curl_close($ch);
+
+    $json = json_decode($respuesta, true);
+    
+    if (isset($json['error'])) {
+        return json_encode(["intencion" => "NULL", "error" => $json['error']['message']]);
+    }
+    
+    // 4. LIMPIEZA DE FORMATO
+    $textoRaw = trim($json['candidates'][0]['content']['parts'][0]['text'] ?? '');
+    
+    if (strpos($preguntaUsuario, 'JSON') === false) {
+        $textoRaw = preg_replace('/\*\*(.*?)\*\*/', '<strong>$1</strong>', $textoRaw);
+    }
+    
+    return $textoRaw;
+}
+
+/* ========= 6. FUNCIÓN CHAT IA (CON MEMORIA) =========== */
+
+function enviarChatGemini(array $historial): string {
+    $apiKey = "AIzaSyBWEtAFD7KrQ0OQ23OUYJBzkZ3HjakL6AQ"; // <--- ¡TU CLAVE OTRA VEZ!
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=$apiKey";
+
+    $data = [
+        "contents" => $historial
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    
+    $respuesta = curl_exec($ch);
+    
+    // Control de errores de conexión cURL
+    if (curl_errno($ch)) {
+        $error = curl_error($ch);
+        curl_close($ch);
+        return "⚠️ Error interno de cURL: " . $error;
+    }
+    curl_close($ch);
+
+    // 1. Decodificar la respuesta JSON de Google
+    $json = json_decode($respuesta, true);
+
+    // 2. Controlar si Google devuelve un error (ej. Cuota excedida, clave incorrecta)
+    if (isset($json['error'])) {
+        return "⚠️ Error de la API de Gemini: " . $json['error']['message'];
+    }
+
+    // 3. Extraer el texto limpio de la respuesta
+    // Navegamos por: candidates[0] -> content -> parts[0] -> text
+    if (isset($json['candidates'][0]['content']['parts'][0]['text'])) {
+        return trim($json['candidates'][0]['content']['parts'][0]['text']);
+    }
+
+    // 4. Si la estructura no es la esperada
+    return "⚠️ Respuesta inesperada de la IA.";
+}
