@@ -75,43 +75,29 @@ function headerHtml($title = 'Pharmasphere')
                 font-size: 1.1em; 
             }
 
-            /* 1. La clase general para la fuente grande */
-            body.fuente-grande {
-                font-size: 1.15rem; /* Aumenta el tamaño base un 15% */
-            }
-
-            /* 2. Forzamos la escala de los enlaces de navegación y del texto del usuario */
+            /* Forzamos la escala de los enlaces de navegación y del texto del usuario */
             body.fuente-grande .nav-link,
             body.fuente-grande .nav-right strong {
-                /* Forzamos un tamaño basado en el nuevo font-size del body */
                 font-size: 1.15em !important; 
             }
 
-            /* 3. Aseguramos que los iconos también se vean grandes, pero controlados */
+            /* Aseguramos que los iconos también se vean grandes, pero controlados */
             body.fuente-grande .nav-right i {
-                font-size: 1.4em !important; /* Subimos un poco el tamaño de los iconos (fa-xl) */
+                font-size: 1.4em !important; 
             }
             
             a { text-decoration: none; transition: 0.2s; }
             h1, h2, h3 { font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1rem; }
 
             /* --- BARRA DE BÚSQUEDA COMPACTA (Izquierda) --- */
-            /* Usamos 'form.search-form' para ganar prioridad sobre la regla general de formularios */
             form.search-form {
                 display: flex;
                 align-items: center;
                 gap: 10px;
-
-                /* 1. FORZAR POSICIÓN A LA IZQUIERDA */
-                /* 'margin: 0' anula el 'margin: 0 auto' que lo centraba */
                 margin: 0 0 20px 0 !important; 
-                
-                /* 2. TAMAÑO CONTENIDO */
-                max-width: 500px !important;   /* Ancho máximo restringido */
+                max-width: 500px !important;   
                 width: 100%;
-
-                /* 3. ESTÉTICA MÁS FINA (Menos relleno) */
-                padding: 12px !important;      /* Mucho más fino que los 30px por defecto */
+                padding: 12px !important;      
                 background-color: var(--color-card);
                 border-radius: var(--radio-borde);
                 border: 1px solid var(--color-borde);
@@ -123,16 +109,14 @@ function headerHtml($title = 'Pharmasphere')
                 position: relative;
             }
 
-            /* Estilos del input interno */
             form.search-form input {
                 margin-bottom: 0 !important; 
-                height: 38px;             /* Altura compacta */
+                height: 38px;             
                 font-size: 0.95rem;
             }
 
-            /* Estilos del botón interno */
             form.search-form button {
-                height: 38px;             /* Misma altura que el input */
+                height: 38px;             
                 padding: 0 20px;
                 display: inline-flex;
                 align-items: center;
@@ -140,6 +124,7 @@ function headerHtml($title = 'Pharmasphere')
                 gap: 8px;
                 white-space: nowrap;
             }
+            
             /* NAVBAR */
             .navbar {
                 position: fixed; top: 0; left: 0; right: 0; height: 70px;
@@ -153,22 +138,21 @@ function headerHtml($title = 'Pharmasphere')
 
             /* --- LOGO PRINCIPAL --- */
             .navbar-logo-img {
-                height: 58px;            /* Mucho más grande (casi llena la barra de 70px) */
-                width: auto;             /* Mantiene la proporción */
+                height: 58px;            
+                width: auto;             
                 vertical-align: middle;
-                transition: transform 0.3s ease, filter 0.3s ease; /* Animación suave */
-                
-                /* Opcional: Una sombra suave para que se separe del fondo */
+                transition: transform 0.3s ease, filter 0.3s ease; 
                 filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
             }
 
             .navbar-logo-img:hover {
-                transform: scale(1.1);   /* Efecto zoom al pasar el ratón */
-                filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); /* Sombra más fuerte */
+                transform: scale(1.1);   
+                filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); 
             }
 
             body.tema-oscuro .navbar { background: rgba(30, 30, 30, 0.9); }
             .nav-left, .nav-right { display: flex; align-items: center; gap: 15px; }
+            
             /* --- ESTILOS GENERALES DE LOS ENLACES DEL MENÚ --- */
             .nav-link {
                 color: var(--color-texto-muted); 
@@ -176,61 +160,43 @@ function headerHtml($title = 'Pharmasphere')
                 font-size: 1.10rem;
                 padding: 8px 16px; 
                 border-radius: 50px; 
-                
-                /* Transición suave para el tamaño (transform) y el color */
                 transition: all 0.2s ease; 
-                
-                /* Aseguramos que el icono y texto estén alineados */
                 display: inline-flex; 
                 align-items: center;
                 justify-content: center;
             }
 
-            /* --- HOVER GENERAL (Escala + Color del Tema) --- */
             .nav-link:hover { 
                 color: var(--color-primario); 
                 background-color: color-mix(in srgb, var(--color-primario), transparent 90%);
-                
-                /* AQUÍ EL EFECTO ZOOM QUE PEDÍAS: */
                 transform: scale(1.08); 
             }
 
-            /* --- ENLACE ACTIVO (El que indica dónde estás) --- */
             .nav-link.active {
                 background-color: var(--color-primario); 
                 color: white !important;
                 box-shadow: 0 4px 10px color-mix(in srgb, var(--color-primario), transparent 60%);
             }
-            /* Al hacer hover sobre el activo, también hacemos zoom */
+            
             .nav-link.active:hover {
                 transform: scale(1.08);
             }
 
             a.nav-link[href='logout.php'] {
                 color: var(--color-peligro) !important;
-                
-                /* AJUSTE VISUAL: Al ser solo un icono, reducimos el padding lateral 
-                   para que el fondo al hacer hover sea más cuadrado/redondo y no un óvalo largo */
                 padding: 15px 8px; 
             }
 
-            /* HOVER ESPECÍFICO PARA LOGOUT */
             a.nav-link[href='logout.php']:hover {
-                /* Fondo ROJO: Ajustado a un tono suave (15% de opacidad) */
                 background-color: rgba(220, 53, 69, 0.15) !important;
-                
-                /* Icono rojo intenso */
                 color: var(--color-peligro) !important;
-                
-                /* ZOOM: Mantenemos el escalado, pero QUITAMOS la rotación */
                 transform: scale(1.15); 
-                
-                /* Opcional: Una sombra roja muy suave para darle profundidad */
                 box-shadow: 0 0 10px rgba(220, 53, 69, 0.2);
             }
+            
             body.tema-oscuro .nav-link.active { 
-            color: #121212 !important; 
-            box-shadow: 0 4px 10px rgba(86, 172, 71, 0.3);
+                color: #121212 !important; 
+                box-shadow: 0 4px 10px rgba(86, 172, 71, 0.3);
             }
 
             /* TABLAS */
@@ -241,20 +207,20 @@ function headerHtml($title = 'Pharmasphere')
                 border: 1px solid var(--color-borde);
             }
             th {
-                background-color: var(--color-primario); /* Azul en Claro, Verde en Oscuro */
-                color: white;  /* Texto blanco para contrastar */
+                background-color: var(--color-primario); 
+                color: white;  
                 padding: 15px;
                 text-align: left;
                 font-weight: 600;
                 text-transform: uppercase;
                 font-size: 0.85rem;
                 letter-spacing: 0.5px;
-                border-bottom: none; /* Quitamos borde inferior porque ya tiene fondo */
+                border-bottom: none; 
             }
             td { padding: 15px; border-bottom: 1px solid var(--color-borde); vertical-align: middle; }
             body.tema-oscuro tbody tr:nth-child(even) { background-color: rgba(255,255,255,0.03); }
 
-            /* ALERTAS (CORREGIDAS) */
+            /* ALERTAS */
             .alert {
                 padding: 15px; margin: 20px auto; max-width: 800px; width: 90%;
                 border-radius: var(--radio-borde); font-weight: 500;
@@ -268,14 +234,12 @@ function headerHtml($title = 'Pharmasphere')
                 font-family: 'Font Awesome 6 Free'; font-weight: 900; content: '\\f00c'; margin-right: 10px;
             }
 
-            /* --- ESTILO DE ERROR (IMPORTANTE) --- */
-            /* Cubrimos tanto .alert.error como .error suelto por si acaso */
+            /* ESTILO DE ERROR */
             .alert.error, .error {
                 background-color: #f8d7da;
-                color: #842029; /* Rojo oscuro para modo claro */
+                color: #842029; 
                 border-color: #f5c6cb;
             }
-            /* MODO OSCURO: Forzamos texto rojo brillante para que se lea */
             body.tema-oscuro .alert.error, body.tema-oscuro .error {
                 background-color: rgba(220, 53, 69, 0.15) !important;
                 color: #ff6b6b !important;
@@ -285,7 +249,6 @@ function headerHtml($title = 'Pharmasphere')
             /* STOCKS */
             .stock-low { 
                 color: var(--color-peligro); 
-                /* Aplicamos la animación solo al stock bajo */
                 animation: pulse-low 1.5s infinite ease-in-out; 
             }
             .stock-med { color: #fd7e14; }
@@ -302,33 +265,28 @@ function headerHtml($title = 'Pharmasphere')
                 transition: all 0.3s ease-out;
             }
 
-            /* --- TARJETA DE SELECCIÓN DE TEMA (Alineada a la Izquierda) --- */
+            /* TARJETA DE SELECCIÓN DE TEMA */
             .theme-card {
-                /* Caja contenedora */
                 background-color: var(--color-card);
                 border: 1px solid var(--color-borde);
                 border-radius: var(--radio-borde);
                 box-shadow: var(--sombra);
-                
-                /* Tamaño y Posición */
-                max-width: 500px; /* Ancho limitado para que no sea gigante */
+                max-width: 500px; 
                 width: 100%;
-                margin: 0;        /* Alineado a la izquierda (quita el margin auto) */
+                margin: 0;        
                 padding: 30px;
             }
 
-            /* Contenedor flexible para los dos botones */
             .theme-options {
                 display: flex;
-                gap: 15px; /* Espacio entre los botones */
+                gap: 15px; 
                 margin-top: 15px;
             }
 
-            /* Los Botones de Opción (Estilo visual) */
             .theme-btn {
-                flex: 1; /* Ambos ocupan el mismo ancho */
+                flex: 1; 
                 display: flex;
-                flex-direction: column; /* Icono arriba, texto abajo */
+                flex-direction: column; 
                 align-items: center;
                 justify-content: center;
                 padding: 20px;
@@ -342,21 +300,17 @@ function headerHtml($title = 'Pharmasphere')
             }
 
             .theme-btn i {
-                font-size: 2rem; /* Icono grande */
+                font-size: 2rem; 
                 margin-bottom: 10px;
             }
 
-            /* Efecto Hover (Al pasar el ratón) */
             .theme-btn:hover {
                 border-color: var(--color-primario);
                 color: var(--color-primario);
-                /* Fondo muy suave del color del tema */
                 background-color: color-mix(in srgb, var(--color-primario), transparent 95%);
                 transform: translateY(-2px);
             }
 
-            /* ESTADO SELECCIONADO (Cómo se ve el activo) */
-            /* Cuando el input radio está marcado, cambiamos el estilo del div .theme-btn hermano */
             input[type='radio']:checked + .theme-btn {
                 border-color: var(--color-primario);
                 background-color: color-mix(in srgb, var(--color-primario), transparent 90%);
@@ -364,12 +318,8 @@ function headerHtml($title = 'Pharmasphere')
                 box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primario), transparent 80%);
             }
 
-            /* Ocultamos los circulitos de radio nativos feos */
-            input[type='radio'] {
-                display: none; 
-            }
+            input[type='radio'] { display: none; }
             
-            /* Ajuste del botón de guardar */
             .btn-save-prefs {
                 margin-top: 25px;
                 width: 100%;
@@ -377,38 +327,27 @@ function headerHtml($title = 'Pharmasphere')
                 font-size: 1rem;
             }
             
-            /* --- REGLA PARA ETIQUETAS (Estaba faltando) --- */
             label {
-                display: block; /* Para que nombre, precio, etc. queden encima del input */
+                display: block; 
                 margin-bottom: 8px;
                 font-weight: 600;
                 font-size: 0.9rem;
             }
 
             input, select, textarea {
-                width: 100%; padding: 12px; margin-bottom: 20px; /* Añadido margen inferior */
+                width: 100%; padding: 12px; margin-bottom: 20px; 
                 border: 1px solid var(--color-borde); border-radius: 8px;
                 background: var(--color-fondo); color: var(--color-texto);
                 box-sizing: border-box; transition: 0.3s;
             }
-            /* --- FOCUS EN INPUTS Y SELECTS --- */
-            input:focus, 
-            select:focus, 
-            textarea:focus {
-                /* 1. El borde toma el color fuerte del tema (Verde o Azul) */
+            
+            input:focus, select:focus, textarea:focus {
                 border-color: var(--color-primario);
-                
-                /* 2. Quitamos el outline nativo del navegador */
                 outline: none;
-                
-                /* 3. AQUÍ EL ARREGLO: */
-                /* Antes tenías un azul fijo rgba(0,123,255...). */
-                /* Ahora usamos el color del tema diluido (85% transparente) para el resplandor */
                 box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primario), transparent 85%);
             }
             
-            /* --- FIX PARA CHECKBOX --- */
-            /* Clase especial para agrupar checkbox y texto horizontalmente */
+            /* CHECKBOX */
             .checkbox-group {
                 display: flex;
                 align-items: center;
@@ -417,7 +356,6 @@ function headerHtml($title = 'Pharmasphere')
                 padding: 10px;
                 border-radius: 8px;
             }
-            /* Hacemos que dentro de este grupo, el label no sea bloque */
             .checkbox-group label {
                 display: inline-block;
                 margin-bottom: 0;
@@ -432,37 +370,29 @@ function headerHtml($title = 'Pharmasphere')
             }
 
             input[type=checkbox] {
-                width: auto !important;   /* Ocupa solo su espacio real */
+                width: auto !important;   
                 display: inline-block;    
-                vertical-align: middle;   /* Alineado al medio con el texto */
-                margin-left: 10px;        /* Separación con el texto */
+                vertical-align: middle;   
+                margin-left: 10px;        
                 margin-top: 17px;            
-                transform: scale(1.3);    /* Un poco más grande */
-                cursor: pointer;          /* Manita al pasar el ratón */
-                
-                /* TRUCO VISUAL: Ajuste fino para que quede centrado perfecto */
+                transform: scale(1.3);    
+                cursor: pointer;          
                 position: relative; 
                 top: -1px; 
             }
 
-            /* --- ESTO QUITA EL BORDE AZUL AL HACER CLIC --- */
             input[type=checkbox]:focus {
-                outline: none !important;      /* Quita la línea de contorno */
-                box-shadow: none !important;   /* Quita el resplandor azul */
-                border-color: var(--color-borde); /* Mantiene el borde gris suave */
+                outline: none !important;      
+                box-shadow: none !important;   
+                border-color: var(--color-borde); 
             }
 
-            /* Opcional: Asegurar que el label no fuerce saltos raros */
-            label {
-                vertical-align: middle;
-            }
-
-            /* --- ESTILOS DEL CHAT FARMACÉUTICO (REDISEÑO) --- */
+            /* --- ESTILOS DEL CHAT FARMACÉUTICO --- */
             .chat-container {
                 background-color: var(--color-card);
                 border: 1px solid var(--color-borde);
                 border-radius: 16px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* Sombra más moderna y profunda */
+                box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
                 max-width: 800px;
                 margin: 0 auto 40px auto;
                 overflow: hidden;
@@ -500,10 +430,10 @@ function headerHtml($title = 'Pharmasphere')
             }
 
             .chat-window {
-                height: 380px; /* Un poco más alto para mayor comodidad */
+                height: 380px; 
                 overflow-y: auto;
                 padding: 20px;
-                background-color: #f4f7f6; /* Fondo gris muy suave para que destaquen los mensajes */
+                background-color: #f4f7f6; 
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
@@ -513,7 +443,6 @@ function headerHtml($title = 'Pharmasphere')
                 background-color: #1a1a1a;
             }
 
-            /* Base de los mensajes (Los bocadillos) */
             .msg {
                 max-width: 80%;
                 padding: 12px 18px;
@@ -525,21 +454,19 @@ function headerHtml($title = 'Pharmasphere')
                 box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             }
 
-            /* Mensaje del Usuario (Derecha, Color Primario) */
             .msg-user {
                 align-self: flex-end;
                 background-color: var(--color-primario);
                 color: white;
-                border-bottom-right-radius: 4px; /* Hace el efecto de flecha hacia el usuario */
+                border-bottom-right-radius: 4px; 
             }
 
-            /* Mensaje de la IA (Izquierda, Color Tarjeta) */
             .msg-model {
                 align-self: flex-start;
                 background-color: var(--color-card);
                 border: 1px solid var(--color-borde);
                 color: var(--color-texto);
-                border-bottom-left-radius: 4px; /* Hace el efecto de flecha hacia la IA */
+                border-bottom-left-radius: 4px; 
             }
 
             .msg-img {
@@ -549,7 +476,6 @@ function headerHtml($title = 'Pharmasphere')
                 display: block;
             }
 
-            /* Controles de abajo (Input y Botones) */
             .chat-controls {
                 padding: 15px 20px;
                 border-top: 1px solid var(--color-borde);
@@ -580,9 +506,9 @@ function headerHtml($title = 'Pharmasphere')
 
             .chat-input {
                 flex-grow: 1;
-                margin: 0 !important; /* Sobrescribimos el margin por defecto de los inputs */
+                margin: 0 !important; 
                 padding: 14px 20px !important;
-                border-radius: 30px !important; /* Input muy redondeado */
+                border-radius: 30px !important; 
                 border: 1px solid var(--color-borde) !important;
                 background-color: var(--color-fondo) !important;
                 font-size: 0.95rem;
@@ -610,11 +536,6 @@ function headerHtml($title = 'Pharmasphere')
                 box-shadow: 0 4px 10px color-mix(in srgb, var(--color-primario), transparent 60%);
             }
 
-            .btn-send-chat i {
-                margin-left: -2px; /* Centrar ópticamente el icono de enviar */
-                font-size: 1.1rem;
-            }
-
             /* BOTONES */
             .btn-table {
                 padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
@@ -622,14 +543,8 @@ function headerHtml($title = 'Pharmasphere')
             }
             .btn-edit {
                 background-color: color-mix(in srgb, var(--color-primario), transparent 85%);
-                
-                /* 2. TEXTO: Color sólido del tema */
                 color: var(--color-primario);
-                
-                /* 3. Sin bordes */
                 border: none;
-                
-                /* Estructura */
                 padding: 6px 12px;
                 border-radius: 8px;
                 font-size: 0.85rem;
@@ -640,32 +555,19 @@ function headerHtml($title = 'Pharmasphere')
                 transition: all 0.3s ease;
             }
 
-            .btn-edit, button, .theme-btn {
-                transition: all 0.2s ease-in-out; 
-            }
-
-            /* Estado al HACER CLICK (Hundimiento) */
-            .btn-edit:active, 
-            button:active, 
-            .nav-link:active,
-            .pagination a:active, 
-            .pagination strong:active {
-                transform: scale(0.95) !important; /* Se hace 5% más pequeño, simulando la presión */
-                filter: brightness(0.9);           /* Se oscurece ligeramente */
+            .btn-edit:active, button:active, .nav-link:active, .pagination a:active, .pagination strong:active {
+                transform: scale(0.95) !important; 
+                filter: brightness(0.9);           
             }
 
             .btn-edit:hover {
-                /* AL HOVER: El fondo se rellena con el color sólido */
                 background-color: var(--color-primario);
-                
-                /* El texto pasa a blanco para contrastar */
                 color: white;
-                
-                /* Efectos de brillo y zoom */
                 transform: scale(1.05);
                 cursor: pointer;
                 text-decoration: none;
             }
+            
             .btn-delete { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; transition: all 0.3s ease;}
             .btn-delete:hover { background-color: #ef4444; color: white; transform: scale(1.05);}
             .btn-buy { background: var(--color-secundario); color: white; padding: 6px 12px; border-radius: 8px; }
@@ -676,23 +578,16 @@ function headerHtml($title = 'Pharmasphere')
             }
             button[type='submit']:hover { background: var(--color-primario-hover); }
 
-            /* --- ESTILOS DE PELIGRO (Delete) --- */
-
-            /* 1. INPUT/TEXTAREA DE PELIGRO */
-            .input-danger {
-                border-color: var(--color-peligro) !important; /* Borde rojo suave siempre */
-            }
+            /* PELIGRO (Delete) */
+            .input-danger { border-color: var(--color-peligro) !important; }
             .input-danger:focus {
-                /* Borde rojo intenso al hacer clic */
                 border-color: var(--color-peligro) !important; 
-                /* Resplandor rojo (en vez de verde/azul) */
                 box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-peligro), transparent 85%) !important;
                 outline: none;
             }
 
-            /* 2. BOTÓN DE PELIGRO (Rojo Sólido) */
             button.btn-danger {
-                background-color: var(--color-peligro) !important; /* Rojo base */
+                background-color: var(--color-peligro) !important; 
                 color: white !important;
                 border: none;
                 padding: 12px 24px;
@@ -703,89 +598,327 @@ function headerHtml($title = 'Pharmasphere')
             }
             
             button.btn-danger:hover {
-                /* CAMBIO RADICAL: Mezclamos el rojo con un 40% de NEGRO puro */
-                /* Esto crea un granate muy profundo y serio */
                 background-color: color-mix(in srgb, var(--color-peligro), black 40%) !important;
-                
-                /* Quitamos el filtro de brillo porque el color ya es muy oscuro de por sí */
                 filter: none; 
-                
-                /* Mantenemos el zoom para el feedback táctil */
                 transform: scale(1.05);
                 cursor: pointer;
             }
             
-            /* --- PAGINACIÓN MODERNA --- */
+            /* PAGINACIÓN */
             .pagination {
-                display: flex;             /* Pone los números en fila */
-                align-items: center;       /* Centrado vertical */
-                justify-content: center;   /* Centrado horizontal en la página */
-                gap: 8px;                  /* Espacio entre botones */
-                margin-top: 30px;          /* Separación con la tabla */
+                display: flex;             
+                align-items: center;       
+                justify-content: center;   
+                gap: 8px;                  
+                margin-top: 30px;          
                 margin-bottom: 20px;
-                flex-wrap: wrap;           /* Si hay muchas páginas, que bajen de línea */
+                flex-wrap: wrap;           
             }
 
-            /* Estilo para los botones (enlaces y el activo) */
-            .pagination a, 
-            .pagination strong {
+            .pagination a, .pagination strong {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                min-width: 40px;           /* Ancho mínimo para que sean cuadrados */
-                height: 40px;              /* Altura fija */
+                min-width: 40px;           
+                height: 40px;              
                 padding: 0 10px;
-                border-radius: 8px;        /* Bordes redondeados */
+                border-radius: 8px;        
                 text-decoration: none;
                 font-weight: 600;
                 font-size: 0.95rem;
                 transition: all 0.2s ease;
-                
-                /* Colores por defecto (Inactivos) */
                 background-color: var(--color-card);
                 border: 1px solid var(--color-borde);
                 color: var(--color-texto);
             }
 
-            /* HOVER: Cuando pasas el ratón por un número */
             .pagination a:hover {
                 border-color: var(--color-primario);
                 color: var(--color-primario);
                 background-color: color-mix(in srgb, var(--color-primario), transparent 90%);
-                transform: translateY(-2px); /* Pequeño salto hacia arriba */
+                transform: translateY(-2px); 
             }
 
-            /* ACTIVO: La página actual (strong) */
             .pagination strong {
-                background-color: var(--color-primario); /* Color del tema (Azul/Verde) */
+                background-color: var(--color-primario); 
                 color: white;
                 border-color: var(--color-primario);
                 box-shadow: 0 4px 10px color-mix(in srgb, var(--color-primario), transparent 60%);
             }
 
-            /* --- FILAS CLICABLES --- */
+            /* FILAS CLICABLES */
             tr.clickable-row {
-                cursor: pointer; /* Manita al pasar el ratón */
+                cursor: pointer; 
                 transition: background-color 0.2s ease;
             }
             
-            /* Efecto hover más notorio para indicar interactividad */
             tr.clickable-row:hover {
                 background-color: color-mix(in srgb, var(--color-primario), transparent 90%) !important;
             }
             
-            /* IMPORTANTE: Que los botones de acción estén por encima */
             tr.clickable-row .btn-table {
                 position: relative;
                 z-index: 2;
             }
 
-            /* Animación */
             @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
             .main-container { animation: fadeIn 0.5s ease-out; max-width: var(--ancho-max); margin: 0 auto; padding: 0 20px; width: 100%; }
             .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--color-borde); }
 
-            /* --- ANIMACIÓN PARA STOCK BAJO (Urgencia) --- */
+            /* =========================================
+               DASHBOARD EVOLUCIONADO (UI MODERNA)
+               ========================================= */
+
+            /* --- Cabecera de Bienvenida --- */
+            .dashboard-welcome {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                margin-bottom: 30px;
+                animation: fadeIn 0.6s ease-out;
+            }
+
+            .welcome-title {
+                font-size: 2.2rem;
+                margin-bottom: 5px;
+                font-weight: 700;
+            }
+
+            .text-highlight { color: var(--color-primario); }
+            
+            .welcome-subtitle {
+                color: var(--color-texto-muted);
+                font-size: 1.1rem;
+                margin: 0;
+            }
+
+            .welcome-date {
+                background-color: var(--color-card);
+                padding: 10px 20px;
+                border-radius: 50px;
+                border: 1px solid var(--color-borde);
+                box-shadow: var(--sombra);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 600;
+                color: var(--color-texto-muted);
+            }
+
+            /* --- Layout Principal --- */
+            .dashboard-layout {
+                display: grid;
+                grid-template-columns: 2.5fr 1fr; 
+                gap: 25px;
+                margin-bottom: 40px;
+            }
+
+            @media (max-width: 992px) {
+                .dashboard-layout {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .dash-main-col, .dash-side-col {
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            /* --- Tarjetas Base Mejoradas --- */
+            .dash-card {
+                background-color: var(--color-card);
+                border: 1px solid var(--color-borde);
+                border-radius: 16px;
+                padding: 25px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+                animation: fadeIn 0.6s ease-out;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .card-header {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid var(--color-borde);
+            }
+
+            .card-header h3 {
+                margin: 0;
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            /* Colores utilitarios */
+            .text-warning { color: #f59e0b; }
+            .text-danger { color: var(--color-peligro); }
+            .text-success { color: var(--color-secundario); }
+            .text-primary { color: var(--color-primario); }
+            .bg-blue-light { background-color: color-mix(in srgb, var(--color-primario), transparent 85%); }
+            .bg-green-light { background-color: color-mix(in srgb, var(--color-secundario), transparent 85%); }
+
+            /* --- Lista de Notificaciones --- */
+            .notification-list { list-style: none; padding: 0; margin: 0; }
+            
+            .notification-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 15px;
+                border-radius: 12px;
+                transition: background-color 0.2s;
+            }
+
+            .notification-item:hover {
+                background-color: color-mix(in srgb, var(--color-texto), transparent 97%);
+            }
+
+            .notification-item.unread {
+                background-color: color-mix(in srgb, var(--color-primario), transparent 95%);
+                border-left: 3px solid var(--color-primario);
+            }
+
+            .notif-icon {
+                width: 40px; height: 40px; border-radius: 10px; display: flex;
+                align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+            }
+
+            .notif-content { flex-grow: 1; }
+            .notif-content strong { display: block; margin-bottom: 4px; color: var(--color-texto); }
+            .notif-content p { margin: 0; font-size: 0.9rem; color: var(--color-texto-muted); }
+            .notif-time { font-size: 0.8rem; color: #999; white-space: nowrap; }
+
+            /* --- Categorías --- */
+            .category-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .cat-card {
+                display: block;
+                padding: 20px;
+                border: 1px solid var(--color-borde);
+                border-radius: 12px;
+                text-align: center;
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                background-color: var(--color-fondo);
+            }
+
+            .cat-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--color-primario);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+
+            .cat-icon { font-size: 2rem; color: var(--color-texto-muted); margin-bottom: 15px; transition: color 0.3s; }
+            .cat-card:hover .cat-icon { color: var(--color-primario); }
+            .cat-card h4 { margin: 0 0 5px 0; color: var(--color-texto); font-size: 1.1rem; }
+            .cat-card p { margin: 0; font-size: 0.85rem; color: var(--color-texto-muted); }
+
+            /* --- Perfil Lateral --- */
+            .profile-summary-card { text-align: center; display: flex; flex-direction: column; align-items: center; }
+            .profile-avatar {
+                width: 80px; height: 80px; border-radius: 50%;
+                background: linear-gradient(135deg, var(--color-primario), color-mix(in srgb, var(--color-primario), black 20%));
+                color: white; display: flex; align-items: center; justify-content: center;
+                font-size: 2.5rem; margin-bottom: 15px;
+                box-shadow: 0 8px 15px color-mix(in srgb, var(--color-primario), transparent 70%);
+            }
+
+            .profile-summary-card h4 { margin: 0 0 5px 0; font-size: 1.4rem; }
+            
+            .badge-role {
+                background-color: color-mix(in srgb, var(--color-texto), transparent 90%);
+                color: var(--color-texto-muted); padding: 4px 12px; border-radius: 20px;
+                font-size: 0.85rem; font-weight: 600; margin-bottom: 20px;
+            }
+
+            .profile-stats {
+                width: 100%; display: flex; justify-content: space-around; padding: 15px 0;
+                border-top: 1px solid var(--color-borde); border-bottom: 1px solid var(--color-borde);
+                margin-bottom: 20px;
+            }
+
+            .stat-item { display: flex; flex-direction: column; gap: 5px; }
+            .stat-label { font-size: 0.8rem; color: var(--color-texto-muted); text-transform: uppercase; }
+            .stat-val { font-weight: 700; color: var(--color-texto); }
+            .stat-val.text-success i { font-size: 0.6rem; vertical-align: middle; }
+
+            /* --- Botones Dash --- */
+            .btn-dash {
+                display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+                padding: 12px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            }
+            .btn-outline { border: 1px solid var(--color-borde); color: var(--color-texto); background: transparent; }
+            .btn-outline:hover { background: var(--color-fondo); border-color: var(--color-texto-muted); }
+            .w-100 { width: 100%; box-sizing: border-box;}
+
+            /* --- Lista de Acciones Rápidas --- */
+            .action-list { display: flex; flex-direction: column; gap: 10px; }
+            .action-item {
+                display: flex; align-items: center; padding: 15px; border: 1px solid var(--color-borde);
+                border-radius: 12px; color: var(--color-texto); transition: all 0.2s; background: var(--color-fondo);
+            }
+            .action-item:hover { border-color: var(--color-primario); transform: translateX(5px); }
+            .action-primary {
+                border-color: color-mix(in srgb, var(--color-primario), transparent 50%);
+                background: color-mix(in srgb, var(--color-primario), transparent 95%);
+            }
+            .action-icon {
+                width: 40px; height: 40px; border-radius: 8px; background: var(--color-card);
+                display: flex; align-items: center; justify-content: center; margin-right: 15px;
+                color: var(--color-primario); box-shadow: var(--sombra);
+            }
+            .action-text { flex-grow: 1; display: flex; flex-direction: column; }
+            .action-text strong { font-size: 1rem; }
+            .action-text span { font-size: 0.85rem; color: var(--color-texto-muted); }
+            .action-arrow { color: var(--color-texto-muted); transition: transform 0.2s; }
+            .action-item:hover .action-arrow { transform: translateX(3px); color: var(--color-primario); }
+
+            /* --- Zona Admin --- */
+            .admin-section-divider {
+                display: flex; align-items: center; margin: 40px 0 30px;
+                color: var(--color-texto-muted); font-weight: 600; text-transform: uppercase;
+                letter-spacing: 1px; font-size: 0.9rem;
+            }
+            .admin-section-divider hr {
+                flex-grow: 1; border: none; border-top: 1px dashed var(--color-borde); margin-right: 15px;
+            }
+
+            .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 25px; }
+            .kpi-card {
+                background-color: var(--color-card); border: 1px solid var(--color-borde);
+                border-radius: 12px; padding: 20px; display: flex; align-items: center;
+                gap: 15px; box-shadow: var(--sombra);
+            }
+            .kpi-icon {
+                width: 50px; height: 50px; border-radius: 12px;
+                background-color: color-mix(in srgb, var(--color-primario), transparent 90%);
+                color: var(--color-primario); display: flex; align-items: center;
+                justify-content: center; font-size: 1.5rem;
+            }
+            .kpi-data { display: flex; flex-direction: column; }
+            .kpi-title { font-size: 0.85rem; color: var(--color-texto-muted); font-weight: 600; }
+            .kpi-value { font-size: 1.8rem; font-weight: 700; color: var(--color-texto); }
+
+            /* Stock Crítico List */
+            .warning-card { border-top: 4px solid var(--color-peligro); }
+            .critical-stock-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+            .critical-stock-list li {
+                display: flex; justify-content: space-between; align-items: center; padding: 12px;
+                background: var(--color-fondo); border-radius: 8px;
+                border: 1px solid color-mix(in srgb, var(--color-peligro), transparent 80%);
+            }
+            .item-name { font-weight: 600; font-size: 0.95rem; }
+            .badge-danger {
+                background-color: var(--color-peligro); color: white; padding: 4px 8px;
+                border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+            }
+
+            /* --- ANIMACIÓN PARA STOCK BAJO --- */
             @keyframes pulse-low {
                 0% { transform: scale(0.9); opacity: 1; }
                 50% { transform: scale(1.2); opacity: 0.9; }
@@ -848,6 +981,7 @@ function headerHtml($title = 'Pharmasphere')
         echo "<h1>" . h($title) . "</h1>";
     }
 }
+
 // Imprime el pie de página y cierra el HTML
 function footerHtml()
 {

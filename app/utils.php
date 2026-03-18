@@ -132,8 +132,10 @@ function auditoria_list(PDO $pdo): array {
 /* ========= 5. FUNCIÓN IA (GEMINI - PROCESAMIENTO IMAGEN) =========== */
 
 function analizarImagenGemini(?string $rutaImagen = null, string $preguntaUsuario = ''): string {
-    $apiKey = "AIzaSyBWEtAFD7KrQ0OQ23OUYJBzkZ3HjakL6AQ"; // <--- ¡TU CLAVE!
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview:generateContent?key=$apiKey";
+    $config = require __DIR__ . '/config_api.php';
+    $apiKey = $config['gemini_api_key'];
+
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=$apiKey";
 
     // 1. PREPARAMOS EL PAYLOAD
     $parts = [];
@@ -201,7 +203,9 @@ function analizarImagenGemini(?string $rutaImagen = null, string $preguntaUsuari
 /* ========= 6. FUNCIÓN CHAT IA (CON MEMORIA) =========== */
 
 function enviarChatGemini(array $historial): string {
-    $apiKey = "AIzaSyBWEtAFD7KrQ0OQ23OUYJBzkZ3HjakL6AQ"; // <--- ¡TU CLAVE OTRA VEZ!
+    $config = require __DIR__ . '/config_api.php';
+    $apiKey = $config['gemini_api_key'];
+
     $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=$apiKey";
 
     $data = [

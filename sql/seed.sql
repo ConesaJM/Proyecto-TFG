@@ -79,7 +79,8 @@ INSERT INTO PRODUCTO (NOMBRE, CATEGORIA, RECETA, PRECIO, STOCK_DISPONIBLE, MARCA
 -- -------------------------------------------------------------
 
 INSERT INTO USUARIO (NOMBRE, CONTRASENHIA, ROL) VALUES
-('Administrador','$2y$10$MupHG1d1f64i9rqk5OSZaOg0uNpoUs9KoBEaaqjkEdS9TaTscXZeq','Administrador');
+('AlejandroAG','123','Administrador');
+
 
 -- ---------------------------------------------------------------
 -- INSERTAR CARRITO
