@@ -983,12 +983,12 @@ function headerHtml($title = 'Pharmasphere')
 }
 
 // Imprime el pie de página y cierra el HTML
-function footerHtml()
-{
-    echo "<hr><small>Proyecto IAW - Pharmasphere</small>"; 
+// function footerHtml()
+// {
+//     echo "<hr><small>Proyecto IAW - Pharmasphere</small>"; 
 
     // --- INICIO DEL WIDGET DE TAWK.TO ---
-    ?>
+    /* ?> 
     
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -1006,4 +1006,4 @@ function footerHtml()
 
     echo "</body></html>";
 }
-?>
+?> */ 
