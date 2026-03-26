@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS PRODUCTO_PROVEEDOR (
 DROP USER IF EXISTS 'admin_pharma'@'localhost';
 
 -- Creación de usuarios ADMIN (COMPLETO)
-CREATE USER 'admin_pharma'@'localhost' IDENTIFIED BY 'Admin_IAW_pharma';  
+CREATE USER 'admin_pharma'@'10.10.2.254' IDENTIFIED BY 'Admin_IAW_pharma';  
     GRANT ALL PRIVILEGES ON pharmasphere_db.* TO 'admin_pharma'@'localhost';
     FLUSH PRIVILEGES;
 -- --------------------------------------------------------
