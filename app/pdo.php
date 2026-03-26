@@ -1,6 +1,6 @@
 <?php
 // Credenciales admin
-$host = "localhost";
+$host = "10.10.2.254";
 $db   = "pharmasphere_db";
 $user = "admin_pharma";
 $pass = "Admin_IAW_pharma";
